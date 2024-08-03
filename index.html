@@ -435,7 +435,7 @@
         }
 
         function playMovie(id, type) {
-            let url = type === 'movie' ? `https://vidsrc.to/embed/movie/${id}` : `https://vidsrc.to/embed/tv/${id}`;
+            let url = type === 'movie' ? `https://vidsrc.me/embed/movie/${id}` : `https://vidsrc.me/embed/tv/${id}`;
             videoContainer.innerHTML = `<iframe src="${url}" frameborder="0" allowfullscreen></iframe>`;
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -517,3 +517,7 @@
     </script>
 </body>
 </html>
+
+
+
+
