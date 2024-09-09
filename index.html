@@ -34,6 +34,23 @@
         header nav {
             display: flex;
             margin-left: 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: thin;
+            scrollbar-color: #888 #111;
+        }
+
+        header nav::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        header nav::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 5px;
+        }
+
+        header nav::-webkit-scrollbar-track {
+            background: #111;
         }
 
         header nav a {
@@ -53,73 +70,6 @@
             margin-right: 20px;
         }
 
-        #search-box {
-            display: none;
-            position: absolute;
-            top: 60px;
-            right: 50px;
-        }
-
-        #searchResults {
-            display: none;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            margin-top: 20px;
-            padding-bottom: 20px;
-            scrollbar-width: thin;
-            scrollbar-color: #888 #111;
-        }
-
-        #searchResults::-webkit-scrollbar {
-            height: 10px;
-        }
-
-        #searchResults::-webkit-scrollbar-thumb {
-            background-color: #888;
-            border-radius: 10px;
-        }
-
-        #searchResults::-webkit-scrollbar-track {
-            background: #111;
-        }
-
-        .results-row {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            padding: 10px;
-            scrollbar-width: thin;
-            scrollbar-color: #888 #111;
-        }
-
-        .results-row::-webkit-scrollbar {
-            height: 10px;
-        }
-
-        .results-row::-webkit-scrollbar-thumb {
-            background-color: #888;
-            border-radius: 10px;
-        }
-
-        .results-row::-webkit-scrollbar-track {
-            background: #111;
-        }
-
-        .result-item {
-            margin: 10px;
-            text-align: center;
-        }
-
-        .result-item img {
-            width: 160px;
-            height: 240px;
-            cursor: pointer;
-        }
-
-        .result-item p {
-            cursor: pointer;
-        }
-
         #video-container {
             width: 100%;
             height: 500px;
@@ -134,12 +84,89 @@
             height: 100%;
         }
 
-        .category-title {
-            margin: 20px 0 10px 10px;
-            font-size: 20px;
+        .category-container {
+            margin-bottom: 30px;
+            position: relative;
         }
 
-        /* Styles for the search screen */
+        .category-title {
+            margin: 20px 0 10px 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .results-row {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding: 10px 40px;
+            scrollbar-width: thin;
+            scrollbar-color: #888 #111;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+
+        .results-row::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .results-row::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 4px;
+        }
+
+        .results-row::-webkit-scrollbar-track {
+            background: #111;
+        }
+
+        .result-item {
+            flex: 0 0 auto;
+            margin: 0 10px;
+            text-align: center;
+        }
+
+        .result-item img {
+            width: 160px;
+            height: 240px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .result-item img:hover {
+            transform: scale(1.05);
+        }
+
+        .result-item p {
+            cursor: pointer;
+            margin-top: 5px;
+            font-size: 14px;
+            max-width: 160px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .scroll-buttons {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .scroll-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
         #search-screen {
             display: none;
             flex-direction: column;
@@ -152,7 +179,7 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
             z-index: 1000;
-            overflow-y: auto; /* Enable scrolling */
+            overflow-y: auto;
         }
 
         #search-input {
@@ -166,75 +193,48 @@
             max-width: 400px;
         }
 
-        .keyboard {
-            display: flex;
-            flex-wrap: wrap;
-            max-width: 400px;
-            margin-bottom: 20px;
-        }
-
-        .key {
-            width: 50px;
-            height: 50px;
-            margin: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid transparent;
-            cursor: pointer;
-            color: #fff;
-            font-size: 18px;
-            background-color: rgba(0, 0, 0, 0.7);
-            transition: border-color 0.3s ease;
-            user-select: none;
-        }
-
-        .key:hover,
-        .key.active {
-            border-color: #fff;
-        }
-
         #search-results-container {
             display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #888 #111;
-        }
-
-        #search-results-container::-webkit-scrollbar {
-            height: 10px;
-        }
-
-        #search-results-container::-webkit-scrollbar-thumb {
-            background-color: #888;
-            border-radius: 10px;
-        }
-
-        #search-results-container::-webkit-scrollbar-track {
-            background: #111;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .search-result {
             margin: 10px;
             text-align: center;
+            width: 160px;
         }
 
         .search-result img {
             width: 160px;
             height: 240px;
             cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .search-result img:hover {
+            transform: scale(1.05);
         }
 
         .search-result p {
             cursor: pointer;
+            margin-top: 5px;
+            font-size: 14px;
+            max-width: 160px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         #visit-count {
-            position: absolute;
+            position: fixed;
             bottom: 10px;
             right: 10px;
             color: #fff;
+            font-size: 12px;
+            opacity: 0.7;
         }
     </style>
 </head>
@@ -265,66 +265,13 @@
         </nav>
         <div id="search-icon" onclick="toggleSearchScreen()"></div>
     </header>
-    <div id="video-container"></div>
-    <div id="searchResults" class="results-row"></div>
 
-    <!-- Category containers -->
-    <div id="action" class="results-row"></div>
-    <div id="adventure" class="results-row"></div>
-    <div id="animation" class="results-row"></div>
-    <div id="comedy" class="results-row"></div>
-    <div id="crime" class="results-row"></div>
-    <div id="documentary" class="results-row"></div>
-    <div id="drama" class="results-row"></div>
-    <div id="family" class="results-row"></div>
-    <div id="fantasy" class="results-row"></div>
-    <div id="history" class="results-row"></div>
-    <div id="horror" class="results-row"></div>
-    <div id="music" class="results-row"></div>
-    <div id="mystery" class="results-row"></div>
-    <div id="romance" class="results-row"></div>
-    <div id="scienceFiction" class="results-row"></div>
-    <div id="tvMovie" class="results-row"></div>
-    <div id="thriller" class="results-row"></div>
-    <div id="war" class="results-row"></div>
-    <div id="western" class="results-row"></div>
+    <div id="video-container"></div>
+    <div id="categories-container"></div>
 
     <div id="search-screen">
         <input type="text" id="search-input" placeholder="Type to search...">
-        <div class="keyboard">
-            <!-- Alphabet keys -->
-            <div class="key" onclick="typeKey('A')">A</div>
-            <div class="key" onclick="typeKey('B')">B</div>
-            <div class="key" onclick="typeKey('C')">C</div>
-            <div class="key" onclick="typeKey('D')">D</div>
-            <div class="key" onclick="typeKey('E')">E</div>
-            <div class="key" onclick="typeKey('F')">F</div>
-            <div class="key" onclick="typeKey('G')">G</div>
-            <div class="key" onclick="typeKey('H')">H</div>
-            <div class="key" onclick="typeKey('I')">I</div>
-            <div class="key" onclick="typeKey('J')">J</div>
-            <div class="key" onclick="typeKey('K')">K</div>
-            <div class="key" onclick="typeKey('L')">L</div>
-            <div class="key" onclick="typeKey('M')">M</div>
-            <div class="key" onclick="typeKey('N')">N</div>
-            <div class="key" onclick="typeKey('O')">O</div>
-            <div class="key" onclick="typeKey('P')">P</div>
-            <div class="key" onclick="typeKey('Q')">Q</div>
-            <div class="key" onclick="typeKey('R')">R</div>
-            <div class="key" onclick="typeKey('S')">S</div>
-            <div class="key" onclick="typeKey('T')">T</div>
-            <div class="key" onclick="typeKey('U')">U</div>
-            <div class="key" onclick="typeKey('V')">V</div>
-            <div class="key" onclick="typeKey('W')">W</div>
-            <div class="key" onclick="typeKey('X')">X</div>
-            <div class="key" onclick="typeKey('Y')">Y</div>
-            <div class="key" onclick="typeKey('Z')">Z</div>
-            <!-- Special keys -->
-            <div class="key" onclick="typeKey(' ')">Space</div>
-            <div class="key" onclick="deleteKey()">Delete</div>
-            <div class="key" onclick="backspaceKey()">Backspace</div>
-        </div>
-        <div id="search-results-container" class="results-row"></div>
+        <div id="search-results-container"></div>
     </div>
     
     <div id="visit-count"></div>
@@ -332,197 +279,210 @@
     <script>
         let apiKey = '650ff50a48a7379fd245c173ad422ff8';
         let videoContainer = document.getElementById('video-container');
-        let searchResults = document.getElementById('searchResults');
         let searchInput = document.getElementById('search-input');
         let searchScreen = document.getElementById('search-screen');
         let searchResultsContainer = document.getElementById('search-results-container');
+        let categoriesContainer = document.getElementById('categories-container');
         
-        let categoryContainers = {
-            '28': document.getElementById('action'),
-            '12': document.getElementById('adventure'),
-            '16': document.getElementById('animation'),
-            '35': document.getElementById('comedy'),
-            '80': document.getElementById('crime'),
-            '99': document.getElementById('documentary'),
-            '18': document.getElementById('drama'),
-            '10751': document.getElementById('family'),
-            '14': document.getElementById('fantasy'),
-            '36': document.getElementById('history'),
-            '27': document.getElementById('horror'),
-            '10402': document.getElementById('music'),
-            '9648': document.getElementById('mystery'),
-            '10749': document.getElementById('romance'),
-            '878': document.getElementById('scienceFiction'),
-            '10770': document.getElementById('tvMovie'),
-            '53': document.getElementById('thriller'),
-            '10752': document.getElementById('war'),
-            '37': document.getElementById('western')
+        let categories = {
+            '28': 'Action',
+            '12': 'Adventure',
+            '16': 'Animation',
+            '35': 'Comedy',
+            '80': 'Crime',
+            '99': 'Documentary',
+            '18': 'Drama',
+            '10751': 'Family',
+            '14': 'Fantasy',
+            '36': 'History',
+            '27': 'Horror',
+            '10402': 'Music',
+            '9648': 'Mystery',
+            '10749': 'Romance',
+            '878': 'Science Fiction',
+            '10770': 'TV Movie',
+            '53': 'Thriller',
+            '10752': 'War',
+            '37': 'Western'
         };
 
-function showAllCategories() {
-    Object.keys(categoryContainers).forEach(category => {
-        fetchMoviesByCategory(category);
-        fetchTvShowsByCategory(category);
-    });
-}
-
-function filterCategory(categoryId) {
-    searchResults.innerHTML = ''; // Clear search results
-    searchResults.style.display = 'none'; // Hide search results
-    Object.keys(categoryContainers).forEach(id => {
-        if (id === categoryId) {
-            categoryContainers[id].style.display = 'flex';
-        } else {
-            categoryContainers[id].style.display = 'none';
+        function showAllCategories() {
+            categoriesContainer.innerHTML = '';
+            Object.entries(categories).forEach(([id, name]) => {
+                let categoryDiv = document.createElement('div');
+                categoryDiv.classList.add('category-container');
+                categoryDiv.innerHTML = `
+                    <h2 class="category-title">${name}</h2>
+                    <div class="results-row" id="category-${id}">
+                        <div class="scroll-buttons">
+                            <button class="scroll-button" onclick="scrollCategory('${id}', 'left')">❮</button>
+                            <button class="scroll-button" onclick="scrollCategory('${id}', 'right')">❯</button>
+                        </div>
+                    </div>
+                `;
+                categoriesContainer.appendChild(categoryDiv);
+                fetchMoviesByCategory(id);
+                fetchTvShowsByCategory(id);
+            });
         }
-    });
-    fetchMoviesByCategory(categoryId);
-    fetchTvShowsByCategory(categoryId);
-}
 
-function fetchMoviesByCategory(categoryId) {
-    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${categoryId}`;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            let movies = data.results;
-            displayMovies(categoryId, movies);
-        })
-        .catch(error => console.error('Error fetching movies:', error));
-}
-
-function fetchTvShowsByCategory(categoryId) {
-    let url = `https://api.themoviedb.org/3/discover/tv?api_key=${apiKey}&with_genres=${categoryId}`;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            let tvShows = data.results;
-            displayTvShows(categoryId, tvShows);
-        })
-        .catch(error => console.error('Error fetching TV shows:', error));
-}
-
-function displayMovies(categoryId, movies) {
-    let container = categoryContainers[categoryId];
-    container.innerHTML = ''; // Clear the container
-    if (movies.length > 0) {
-        movies.forEach(movie => {
-            let movieDiv = document.createElement('div');
-            movieDiv.classList.add('result-item');
-            movieDiv.innerHTML = `
-                <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" onclick="playMovie('${movie.id}', 'movie')" alt="${movie.title}">
-                <p onclick="playMovie('${movie.id}', 'movie')">${movie.title}</p>
-            `;
-            container.appendChild(movieDiv);
-        });
-    }
-}
-
-function displayTvShows(categoryId, tvShows) {
-    let container = categoryContainers[categoryId];
-    container.innerHTML = ''; // Clear the container
-    if (tvShows.length > 0) {
-        tvShows.forEach(show => {
-            let showDiv = document.createElement('div');
-            showDiv.classList.add('result-item');
-            showDiv.innerHTML = `
-                <img src="https://image.tmdb.org/t/p/w500${show.poster_path}" onclick="playMovie('${show.id}', 'tv')" alt="${show.name}">
-                <p onclick="playMovie('${show.id}', 'tv')">${show.name}</p>
-            `;
-            container.appendChild(showDiv);
-        });
-    }
-}
-
-function playMovie(id, type) {
-    let url = type === 'movie' ? `https://vidsrc.me/embed/movie/${id}` : `https://vidsrc.me/embed/tv/${id}`;
-    videoContainer.innerHTML = `<iframe src="${url}" frameborder="0" allowfullscreen></iframe>`;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function searchMovies(query) {
-    let url = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${query}`;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            let results = data.results;
-            displaySearchResults(results);
-        })
-        .catch(error => console.error('Error searching movies:', error));
-}
-
-function displaySearchResults(results) {
-    searchResultsContainer.innerHTML = ''; // Clear previous results
-    if (results.length > 0) {
-        results.forEach(result => {
-            let resultDiv = document.createElement('div');
-            resultDiv.classList.add('search-result');
-            if (result.media_type === 'movie') {
-                resultDiv.innerHTML = `
-                    <img src="https://image.tmdb.org/t/p/w500${result.poster_path}" onclick="playMovie('${result.id}', 'movie')" alt="${result.title}">
-                    <p onclick="playMovie('${result.id}', 'movie')">${result.title}</p>
-                `;
-            } else if (result.media_type === 'tv') {
-                resultDiv.innerHTML = `
-                    <img src="https://image.tmdb.org/t/p/w500${result.poster_path}" onclick="playMovie('${result.id}', 'tv')" alt="${result.name}">
-                    <p onclick="playMovie('${result.id}', 'tv')">${result.name}</p>
-                `;
+        function scrollCategory(categoryId, direction) {
+            const container = document.getElementById(`category-${categoryId}`);
+            const scrollAmount = container.clientWidth * 0.8;
+            if (direction === 'left') {
+                container.scrollBy({left: -scrollAmount, behavior: 'smooth'});
+            } else {
+                container.scrollBy({left: scrollAmount, behavior: 'smooth'});
             }
-            searchResultsContainer.appendChild(resultDiv);
+        }
+
+        function filterCategory(categoryId) {
+            categoriesContainer.innerHTML = '';
+            let categoryDiv = document.createElement('div');
+            categoryDiv.classList.add('category-container');
+            categoryDiv.innerHTML = `
+                <h2 class="category-title">${categories[categoryId]}</h2>
+                <div class="results-row" id="category-${categoryId}">
+                    <div class="scroll-buttons">
+                        <button class="scroll-button" onclick="scrollCategory('${categoryId}', 'left')">❮</button>
+                        <button class="scroll-button" onclick="scrollCategory('${categoryId}', 'right')">❯</button>
+                    </div>
+                </div>
+            `;
+            categoriesContainer.appendChild(categoryDiv);
+            fetchMoviesByCategory(categoryId);
+            fetchTvShowsByCategory(categoryId);
+        }
+
+        function fetchMoviesByCategory(categoryId) {
+            let url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${categoryId}&page=1`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let movies = data.results;
+                    displayMovies(categoryId, movies);
+                })
+                .catch(error => console.error('Error fetching movies:', error));
+        }
+
+        function fetchTvShowsByCategory(categoryId) {
+            let url = `https://api.themoviedb.org/3/discover/tv?api_key=${apiKey}&with_genres=${categoryId}&page=1`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let tvShows = data.results;
+                    displayTvShows(categoryId, tvShows);
+                })
+                .catch(error => console.error('Error fetching TV shows:', error));
+        }
+
+        function displayMovies(categoryId, movies) {
+            let container = document.getElementById(`category-${categoryId}`);
+            movies.forEach(movie => {
+                if (movie.poster_path) {
+                    let movieDiv = document.createElement('div');
+                    movieDiv.classList.add('result-item');
+                    movieDiv.innerHTML = `
+                        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" onclick="playMovie('${movie.id}', 'movie')" alt="${movie.title}">
+                        <p onclick="playMovie('${movie.id}', 'movie')">${movie.title}</p>
+                    `;
+                    container.appendChild(movieDiv);
+                }
+            });
+        }
+
+        function displayTvShows(categoryId, tvShows) {
+            let container = document.getElementById(`category-${categoryId}`);
+            tvShows.forEach(show => {
+                if (show.poster_path) {
+                    let showDiv = document.createElement('div');
+                    showDiv.classList.add('result-item');
+                    showDiv.innerHTML = `
+                        <img src="https://image.tmdb.org/t/p/w500${show.poster_path}" onclick="playMovie('${show.id}', 'tv')" alt="${show.name}">
+                        <p onclick="playMovie('${show.id}', 'tv')">${show.name}</p>
+                    `;
+                    container.appendChild(showDiv);
+                }
+            });
+        }
+
+        function playMovie(id, type) {
+            let url = type === 'movie' ? `https://vidsrc.me/embed/movie?tmdb=${id}` : `https://vidsrc.me/embed/tv?tmdb=${id}`;
+            videoContainer.innerHTML = `<iframe src="${url}" frameborder="0" allowfullscreen></iframe>`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function searchMovies(query) {
+            let url = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${query}&page=1`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let results = data.results;
+                    displaySearchResults(results);
+                })
+                .catch(error => console.error('Error searching movies:', error));
+        }
+
+        function displaySearchResults(results) {
+            searchResultsContainer.innerHTML = '';
+            if (results.length > 0) {
+                results.forEach(result => {
+                    if ((result.media_type === 'movie' || result.media_type === 'tv') && result.poster_path) {
+                        let resultDiv = document.createElement('div');
+                        resultDiv.classList.add('search-result');
+                        let title = result.media_type === 'movie' ? result.title : result.name;
+                        resultDiv.innerHTML = `
+                            <img src="https://image.tmdb.org/t/p/w500${result.poster_path}" onclick="playMovie('${result.id}', '${result.media_type}')" alt="${title}">
+                            <p onclick="playMovie('${result.id}', '${result.media_type}')">${title}</p>
+                        `;
+                        searchResultsContainer.appendChild(resultDiv);
+                    }
+                });
+            } else {
+                searchResultsContainer.innerHTML = '<p>No results found</p>';
+            }
+        }
+
+        function toggleSearchScreen() {
+            if (searchScreen.style.display === 'none' || searchScreen.style.display === '') {
+                searchScreen.style.display = 'flex';
+                searchInput.focus();
+            } else {
+                searchScreen.style.display = 'none';
+                searchInput.value = '';
+                searchResultsContainer.innerHTML = '';
+            }
+        }
+
+        searchInput.addEventListener('input', function() {
+            if (this.value.length > 2) {
+                searchMovies(this.value);
+            } else {
+                searchResultsContainer.innerHTML = '';
+            }
         });
-    }
-}
 
-function toggleSearchScreen() {
-    if (searchScreen.style.display === 'none') {
-        searchScreen.style.display = 'flex';
-    } else {
-        searchScreen.style.display = 'none';
-    }
-}
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                searchScreen.style.display = 'none';
+                searchInput.value = '';
+                searchResultsContainer.innerHTML = '';
+            }
+        });
 
-function typeKey(key) {
-    searchInput.value += key;
-    searchMovies(searchInput.value);
-}
+        function updateVisitCount() {
+            let visitCount = localStorage.getItem('visitCount');
+            if (!visitCount) {
+                visitCount = 0;
+            }
+            visitCount++;
+            localStorage.setItem('visitCount', visitCount);
+            document.getElementById('visit-count').innerText = `Visit count: ${visitCount}`;
+        }
 
-function deleteKey() {
-    searchInput.value = '';
-    searchResultsContainer.innerHTML = '';
-}
-
-function backspaceKey() {
-    searchInput.value = searchInput.value.slice(0, -1);
-    searchMovies(searchInput.value);
-}
-
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') {
-        searchScreen.style.display = 'none';
-    } else if (event.key.length === 1) {
-        event.preventDefault();
-        searchInput.value += event.key;
-        searchMovies(searchInput.value);
-    } else if (event.key === 'Backspace') {
-        event.preventDefault();
-        searchInput.value = searchInput.value.slice(0, -1);
-        searchMovies(searchInput.value);
-    }
-});
-
-function updateVisitCount() {
-    let visitCount = localStorage.getItem('visitCount');
-    if (!visitCount) {
-        visitCount = 0;
-    }
-    visitCount++;
-    localStorage.setItem('visitCount', visitCount);
-    document.getElementById('visit-count').innerText = `Visit count: ${visitCount}`;
-}
-
-updateVisitCount();
-showAllCategories(); // Show all categories on initial load
-
+        // Initialize the page
+        updateVisitCount();
+        showAllCategories();
     </script>
 </body>
 </html>
